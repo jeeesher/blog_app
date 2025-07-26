@@ -1,17 +1,19 @@
-<h1>Login</h1>
+<div class="auth-page-container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-sm auth-card">
+        <h2 class="text-center mb-4">Log in</h2>
 
-<%= form_with url: login_path, local: true do %>
-    <div>
-        <%= label_tag :email %>
-        <%= text_field_tag :email %>
-    </div>
+        <%= form_with url: login_path, local: true, class: "auth-form" do %>
+        <div class="mb-3">
+            <%= label_tag :email, "Email Address", class: "form-label" %>
+            <%= text_field_tag :email, nil, class: "form-control", placeholder: "Enter your email" %>
+        </div>
 
-    <div>
-        <%= label_tag :password %>
-        <%= password_field_tag :password %>
-    </div>
+        <div class="mb-4 position-relative">
+            <%= label_tag :password, "Password", class: "form-label" %>
+            <%= password_field_tag :password, nil, class: "form-control", placeholder: "Enter your password" %>
+        </div>
 
-    <div>
-        <%= submit_tag "Login" %>
+        <%= submit_tag "Log in", class: "btn btn-primary w-100 rounded-pill py-2" %>
+        <% end %>
     </div>
-<% end %>
+</div>
