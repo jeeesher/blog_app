@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   post "/login" => "sessions#create"
   delete "/logout" => "sessions#destroy"
 
+  get "signup" => "users#new"
+  post "signup" => "users#create"
+
   namespace :admin do
     get "dashboard" => "dashboard#index"
     resources :posts, only: [:index, :show, :destroy] do
