@@ -21,6 +21,12 @@ class Admin::CommentsController < ApplicationController
       @comments = @comments.where(post_id: params[:post_id])
     end
 
+    # Filter by date posted
+    if params[:start_date].present?
+      start_date = Date.parse(params[:start_date]).beginning_of_day
+      @comments = @comments.where("comments.created_at >= ?", start_date)
+    end
+
     # Load all authors for dropdown filter
     @available_authors = User.joins(:comments).distinct.select(:id, :name).order(:name)
     # Load all posts for dropdown filter

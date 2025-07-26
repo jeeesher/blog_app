@@ -15,6 +15,9 @@
             options_from_collection_for_select(@available_posts, :id, :title, params[:post_id]),
             include_blank: "All Posts" %>
 
+        <!-- Filter by Date -->
+        <label>From:</label>
+        <%= date_field_tag :start_date, params[:start_date] %>
 
         <%= submit_tag "Apply Filters" %>
         <%= link_to "Reset", admin_comments_path %>
