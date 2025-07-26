@@ -11,9 +11,20 @@ $error: #DC2626;
 
 @import "bootstrap";
 @import "components/navbar";
+@import "components/auth_form";
 
 body {
     font-family: 'Poppins', sans-serif;
     background: $background;
     color: $text-dark;
+    justify-content: center;
+    align-items: center;
+}
+
+footer {
+    font-size: 0.875rem;
+    color: #6c757d;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
 }
