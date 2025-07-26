@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -17,9 +18,10 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap", media: "all" %>
+
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
@@ -27,7 +29,7 @@
       <%= link_to "Home", root_path %> |
       <% if logged_in? %>
         Logged in as <%= current_user.name %> (<%= current_user.role %>) |
-        <%= link_to "Logout", logout_path, method: :delete, data: { turbo_method: :delete, confirm: "Log out?" } %>
+        <%= link_to "Logout", logout_path, data: { turbo_method: :delete, confirm: "Log out?" } %>
       <% else %>
         <%= link_to "Login", login_path %> |
         <%= link_to "Sign Up", signup_path %>

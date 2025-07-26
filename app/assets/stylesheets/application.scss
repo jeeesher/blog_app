@@ -1,0 +1,18 @@
+
+$primary: #7C3AED;
+$secondary: #6B7280;
+$accent: #EC4899;
+$background: #FEFCFB;
+$text-dark: #374151;
+$text-light: #FEFCFB;
+$text-gray: #596271;
+$success: #059669;
+$error: #DC2626;
+
+@import "bootstrap";
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: $background;
+    color: $text-dark;
+}
