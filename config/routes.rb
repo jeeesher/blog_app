@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get "users/new"
-  get "users/create"
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "posts#index"
@@ -19,6 +17,9 @@ Rails.application.routes.draw do
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"
   delete "/logout" => "sessions#destroy"
+
+  get "signup" => "users#new"
+  post "signup" => "users#create"
 
   namespace :admin do
     get "dashboard" => "dashboard#index"
