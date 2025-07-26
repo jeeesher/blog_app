@@ -1,8 +1,8 @@
 <%= form_with model: [@post, comment], local: true do |f| %>
     <% if comment.errors.any? %>
-        <div style="color: red;">
-        <h3><%= pluralize(comment.errors.count, "error") %> prevented this comment from being saved:</h3>
-        <ul>
+        <div class="alert alert-danger">
+        <h5 class="fw-bold"><%= pluralize(comment.errors.count, "error") %> prevented this comment from being saved:</h5>
+        <ul class="mb-0">
             <% comment.errors.full_messages.each do |message| %>
             <li><%= message %></li>
             <% end %>
@@ -10,13 +10,14 @@
         </div>
     <% end %>
 
-    <div>
-        <%= f.label :content, "Comment" %><br>
-        <%= f.text_area :content, rows: 4, required: true %>
+    <div class="mb-3">
+        <%= f.label :content, "Comment", class: "form-label fw-semibold" %><br>
+        <%= f.text_area :content, rows: 4, required: true, class: "form-control rounded-2" %>
     </div>
 
-    <div style="margin-top: 10px;">
-        <%= link_to "Cancel", (request.referer || post_path(@post)) %>
-        <%= f.submit "Save" %>
+    <div class="d-flex justify-content-end gap-2">
+        <%= link_to "Cancel", (request.referer || post_path(@post)), class: "btn btn-outline-primary rounded-pill px-4" %>
+        <%= f.submit "Save",
+            class: "btn btn-primary rounded-pill px-4" %>
     </div>
 <% end %>
