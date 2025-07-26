@@ -1,0 +1,30 @@
+<%= form_with model: @post, local: true do |f| %>
+    <% if @post.errors.any? %>
+        <div style="color: red;">
+        <h3><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h3>
+        <ul>
+            <% @post.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+        </ul>
+        </div>
+    <% end %>
+
+    <!-- Title -->
+    <div>
+        <%= f.label :title %><br>
+        <%= f.text_field :title, required: true %>
+    </div>
+
+    <!-- Body -->
+    <div>
+        <%= f.label :body %><br>
+        <%= f.text_area :body, rows: 6, required: true %>
+    </div>
+
+    <!-- Buttons -->
+    <div style="margin-top: 10px;">
+        <%= link_to "Cancel", (request.referer || root_path), class: "btn-cancel" %>
+        <%= f.submit "Save", class: "btn-save" %>
+    </div>
+<% end %>
