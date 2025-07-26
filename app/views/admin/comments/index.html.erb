@@ -1,12 +1,26 @@
-<h1>All Comments</h1>
+<h1>Comments Manager</h1>
+
+<!-- Filters -->
+    <%= form_with url: admin_comments_path, method: :get, local: true do %>
+    <div style="margin-bottom: 10px;">
+        <!-- Filter by Author -->
+        <label>Filter by Author:</label>
+        <%= select_tag :author_id,
+            options_from_collection_for_select(@available_authors, :id, :name, params[:author_id]),
+            include_blank: "All Authors" %>
+
+        <%= submit_tag "Apply Filters" %>
+        <%= link_to "Reset", admin_comments_path %>
+    </div>
+<% end %>
 
 <table border="1" cellpadding="5">
     <thead>
         <tr>
         <th>Content</th>
-        <th>Post</th>
+        <th>Post Title</th>
         <th>Author</th>
-        <th>Created At</th>
+        <th>Date Posted</th>
         <th>Actions</th>
         </tr>
     </thead>

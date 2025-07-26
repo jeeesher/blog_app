@@ -10,6 +10,14 @@ class Admin::CommentsController < ApplicationController
       @comments = @comments.where(post_id: params[:post_id])
       @selected_post = Post.find(params[:post_id])
     end
+
+    # Filter by author
+    if params[:author_id].present?
+      @comments = @comments.where(user_id: params[:author_id])
+    end
+
+    # Load all authors for dropdown filter
+    @available_authors = User.joins(:comments).distinct.select(:id, :name).order(:name)
   end
 
   def edit
