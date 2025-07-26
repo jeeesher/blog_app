@@ -1,4 +1,12 @@
 <h1>Blog Posts Manager</h1>
+<!-- Delete All Posts Button -->
+<div style="margin-bottom: 15px;">
+    <%= button_to "Delete ALL Posts",
+        destroy_all_admin_posts_path,
+        method: :delete,
+        data: { confirm: "⚠️ Are you sure you want to delete ALL posts and their comments? This cannot be undone!" },
+        style: "background-color: red; color: white; padding: 8px; border: none; cursor: pointer;" %>
+</div>
 
 <!-- Search and Filter Form -->
 <%= form_with url: admin_posts_path, method: :get, local: true do %>

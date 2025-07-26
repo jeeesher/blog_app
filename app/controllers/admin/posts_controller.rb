@@ -36,6 +36,11 @@ class Admin::PostsController < ApplicationController
     redirect_to admin_posts_path, notice: "Post deleted successfully."
   end
 
+  def destroy_all
+    Post.destroy_all
+    redirect_to admin_posts_path, notice: "All posts and their comments have been deleted."
+  end
+
   private
 
   def require_admin
