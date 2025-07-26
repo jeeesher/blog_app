@@ -23,6 +23,17 @@
   </head>
 
   <body>
+    <nav>
+      <% if logged_in? %>
+        Logged in as <%= current_user.name %> (<%= current_user.role %>) |
+        <%= link_to "Logout", logout_path, method: :delete %>
+      <% else %>
+        <%= link_to "Login", login_path %>
+      <% end %>
+    </nav>
+
+    <%= notice %>
+    <%= alert %>
     <%= yield %>
   </body>
 </html>
