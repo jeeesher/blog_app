@@ -10,10 +10,12 @@
 
     <!-- Blog Posts List -->
     <% @posts.each do |post| %>
-        <div class="blog-post-item py-3">
-            <small class="text-uppercase fw-bold text-muted">
-                Author <span class="mx-1">|</span> <%= post.created_at.strftime("%B %d, %Y") %>
-            </small>
+        <div class="blog-post-item py-2">
+            <div class="mb-1 text-muted">
+                <span class="text-uppercase fw-bold"><%= post.user.name %></span>
+                <span class="mx-1">|</span> 
+                <span class="fw-normal"><%= post.created_at.strftime("%B %d, %Y") %></span>
+            </div>
 
             <h4 class="fw-bold mt-2">
                 <%= link_to post.title, post_path(post), class: "text-dark text-decoration-none hover-primary" %>
