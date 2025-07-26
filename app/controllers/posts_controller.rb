@@ -7,6 +7,10 @@ class PostsController < ApplicationController
     @posts = Post.includes(:user).all.order(created_at: :desc)
   end
 
+  def my_posts
+    @posts = current_user.posts.order(created_at: :desc)
+  end
+
   def show
     @comments = @post.comments.includes(:user)
     @comment = Comment.new # For comment form

@@ -1,14 +1,18 @@
-<h1>All Posts</h1>
+<h1>Recent Blog Posts</h1>
 
 <% if logged_in? %>
-    <%= link_to "New Post", new_post_path %>
+    <p>
+        <%= link_to "My Posts", my_posts_posts_path %> |
+        <%= link_to "New Post", new_post_path %>
+    </p>
 <% end %>
 
 <ul>
     <% @posts.each do |post| %>
-        <li>
-        <h2><%= link_to post.title, post_path(post) %></h2>
-        <p>By <%= post.user.name %> | <%= post.created_at.strftime("%b %d, %Y") %></p>
+        <li style="margin-bottom: 15px;">
+            <p>By <%= post.user.name %> | <%= post.created_at.strftime("%b %d, %Y") %></p>
+            <h2><%= link_to post.title, post_path(post) %></h2>
+            <p><%= truncate(post.body, length: 120) %></p>
         </li>
     <% end %>
 </ul>
