@@ -115,11 +115,38 @@ footer {
 
     &:hover {
         background: $primary;
-        color: #fff;
+        color: $text-light;
     }
 }
 
 
+/* Button Styles */
 .simple-btn {
     color: $accent;
+}
+
+
+/* Post Form Styles */
+.post-form-container {
+    max-width: 700px; 
+}
+
+.post-form-card {
+    border: 2px solid $primary; 
+    border-radius: 16px;
+    padding: 40px;
+}
+
+.post-form-card h3 {
+    color: $text-dark;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+}
+
+.form-label {
+    color: $text-gray;
 }
