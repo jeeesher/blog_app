@@ -1,5 +1,14 @@
 <h1>Comments Manager</h1>
 
+<!-- Bulk Delete All Comments -->
+<div style="margin-bottom: 15px;">
+    <%= button_to "Delete ALL Comments",
+        destroy_all_admin_comments_path,
+        method: :delete,
+        data: { confirm: "⚠️ Are you sure you want to delete ALL comments? This cannot be undone!" },
+        style: "background-color: red; color: white; padding: 8px; border: none; cursor: pointer;" %>
+</div>
+
 <!-- Filters -->
     <%= form_with url: admin_comments_path, method: :get, local: true do %>
     <div style="margin-bottom: 10px;">

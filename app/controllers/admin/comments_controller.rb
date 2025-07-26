@@ -49,6 +49,11 @@ class Admin::CommentsController < ApplicationController
     redirect_to admin_comments_path, notice: "Comment deleted successfully."
   end
 
+  def destroy_all
+    Comment.destroy_all
+    redirect_to admin_comments_path, notice: "All comments have been deleted."
+  end
+
   private
 
   def require_admin

@@ -26,6 +26,10 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :comments, only: [:index, :edit, :update, :destroy]
+    resources :comments, only: [:index, :edit, :update, :destroy] do
+      collection do
+        delete :destroy_all
+      end
+    end
   end
 end
