@@ -29,7 +29,8 @@
         Logged in as <%= current_user.name %> (<%= current_user.role %>) |
         <%= link_to "Logout", logout_path, method: :delete, data: { turbo_method: :delete, confirm: "Log out?" } %>
       <% else %>
-        <%= link_to "Login", login_path %>
+        <%= link_to "Login", login_path %> |
+        <%= link_to "Sign Up", signup_path %>
       <% end %>
     </nav>
 
