@@ -4,6 +4,12 @@ class Admin::CommentsController < ApplicationController
 
   def index
     @comments = Comment.includes(:post, :user).order(created_at: :desc)
+
+    # If coming from "Comments" action in post manager
+    if params[:post_id].present?
+      @comments = @comments.where(post_id: params[:post_id])
+      @selected_post = Post.find(params[:post_id])
+    end
   end
 
   def edit
