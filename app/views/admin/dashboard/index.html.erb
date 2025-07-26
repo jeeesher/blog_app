@@ -1,2 +1,26 @@
-<h1>Admin::Dashboard#index</h1>
-<p>Find me in app/views/admin/dashboard/index.html.erb</p>
+<h1>Admin Dashboard</h1>
+
+<h2>Recent Posts</h2>
+<ul>
+  <% @recent_posts.each do |post| %>
+    <li>
+      <strong><%= post.title %></strong> by <%= post.user.name %> 
+      (<%= time_ago_in_words(post.created_at) %> ago)
+    </li>
+  <% end %>
+</ul>
+<%= link_to "See All Posts", admin_posts_path %>
+
+<hr>
+
+<h2>Recent Comments</h2>
+<ul>
+    <% @recent_comments.each do |comment| %>
+        <li>
+        "<%= truncate(comment.content, length: 50) %>"  
+        on <strong><%= comment.post.title %></strong> by <%= comment.user.name %>  
+        (<%= time_ago_in_words(comment.created_at) %> ago)
+        </li>
+    <% end %>
+    </ul>
+<%= link_to "See All Comments", admin_comments_path %>
