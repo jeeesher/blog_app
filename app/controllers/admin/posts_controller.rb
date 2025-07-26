@@ -14,6 +14,12 @@ class Admin::PostsController < ApplicationController
       @posts = @posts.where(user_id: params[:author_id])
     end
 
+    # Filter by date posted
+    if params[:start_date].present?
+      start_date = Date.parse(params[:start_date]).beginning_of_day
+      @posts = @posts.where("posts.created_at >= ?", start_date)
+    end
+
     # Load all authors for dropdown filter
     @authors =   
       User.joins(:posts)
