@@ -1,5 +1,6 @@
 class Admin::PostsController < ApplicationController
   before_action :require_admin
+  before_action :set_post, only: [:show, :destroy]
 
   def index
     @posts = Post.includes(:user).order(created_at: :desc)
@@ -30,6 +31,10 @@ class Admin::PostsController < ApplicationController
         .order(:name)
   end
 
+  def show
+    @comments = @post.comments.includes(:user).order(created_at: :asc)
+  end
+
   def destroy
     post = Post.find(params[:id])
     post.destroy
@@ -42,6 +47,10 @@ class Admin::PostsController < ApplicationController
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
   def require_admin
     unless logged_in? && admin?
