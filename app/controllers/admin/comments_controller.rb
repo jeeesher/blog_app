@@ -1,7 +1,40 @@
 class Admin::CommentsController < ApplicationController
+  before_action :require_admin
+  before_action :set_comment, only: [:edit, :update, :destroy]
+
   def index
+    @comments = Comment.includes(:post, :user).order(created_at: :desc)
   end
 
   def edit
+  end
+
+  def update
+    if @comment.update(comment_params)
+      redirect_to admin_comments_path, notice: "Comment updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @comment.destroy
+    redirect_to admin_comments_path, notice: "Comment deleted successfully."
+  end
+
+  private
+
+  def require_admin
+    unless logged_in? && admin?
+      redirect_to root_path, alert: "You are not authorized to access this page."
+    end
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def comment_params
+    params.require(:comment).permit(:content)
   end
 end
