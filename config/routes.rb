@@ -9,6 +9,10 @@ Rails.application.routes.draw do
     end
     resources :comments, only: [:create, :edit, :update, :destroy]
   end
+
+  resources :posts do
+    resources :comments, only: [:new, :create, :edit, :update, :destroy]
+  end
   
   get "/login" => "sessions#new"
   post "/login" => "sessions#create"
