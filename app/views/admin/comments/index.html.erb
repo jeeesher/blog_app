@@ -47,7 +47,7 @@
         <% @comments.each do |comment| %>
         <tr>
             <td><%= truncate(comment.content, length: 50) %></td>
-            <td><%= link_to comment.post.title, post_path(comment.post) %></td>
+            <td><%= link_to comment.post.title, admin_post_path(comment.post) %></td>
             <td><%= comment.user.name %></td>
             <td><%= comment.created_at.strftime("%b %d, %Y") %></td>
             <td>
@@ -55,6 +55,13 @@
             <%= link_to "Delete", admin_comment_path(comment), 
                     method: :delete,
                     data: { turbo_method: :delete, confirm: "Delete this comment?" } %>
+            </td>
+            <td>
+                <% if comment.post %>
+                    <%= link_to comment.post.title, admin_post_path(comment.post) %>
+                <% else %>
+                    <em>Post deleted</em>
+                <% end %>
             </td>
         </tr>
         <% end %>
