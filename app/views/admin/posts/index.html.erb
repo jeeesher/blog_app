@@ -1,29 +1,48 @@
-<h1>All Posts</h1>
+<h1>Blog Posts Manager</h1>
+
+<!-- Search and Filter Form -->
+<%= form_with url: admin_posts_path, method: :get, local: true do %>
+    <div style="margin-bottom: 10px;">
+        # <label>Search by title:</label>
+        # <%= text_field_tag :search, params[:search] %>
+
+        <label>Filter by author:</label>
+        <%= select_tag :author_id,
+            options_from_collection_for_select(@authors, :id, :name, params[:author_id]),
+            include_blank: "All Authors" %>
+
+        <%= submit_tag "Apply Filters" %>
+        <%= link_to "Reset", admin_posts_path %>
+    </div>
+<% end %>
 
 <table border="1" cellpadding="5">
     <thead>
         <tr>
-        <th>Title</th>
+        <th>Post Title</th>
         <th>Author</th>
-        <th>Created At</th>
+        <th>Date Posted</th>
         <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <% @posts.each do |post| %>
-        <tr>
-            <td><%= post.title %></td>
-            <td><%= post.user.name %></td>
-            <td><%= post.created_at.strftime("%b %d, %Y") %></td>
-            <td>
-            <%= link_to "View", post_path(post) %> |
-            <%= link_to "Delete", admin_post_path(post), 
-                    method: :delete, 
-                    data: { turbo_method: :delete, confirm: "Delete this post?" } %>
-            </td>
-        </tr>
+            <tr>
+                <td><%= post.title %></td>
+                <td><%= post.user.name %></td>
+                <td><%= post.created_at.strftime("%b %d, %Y") %></td>
+                <td>
+                <!-- View only this post's comments -->
+                <%= link_to "Comments", admin_comments_path(post_id: post.id) %> |
+
+                <!-- Delete post -->
+                <%= link_to "Delete", admin_post_path(post),
+                        method: :delete,
+                        data: { turbo_method: :delete, confirm: "Delete this post and all its comments?" } %>
+                </td>
+            </tr>
         <% end %>
     </tbody>
 </table>
 
-<p><%= link_to "Back to Dashboard", admin_dashboard_path %></p>
+<p><%= link_to "Dashboard", admin_dashboard_path %></p>

@@ -15,7 +15,11 @@ class Admin::PostsController < ApplicationController
     end
 
     # Load all authors for dropdown filter
-    @authors = User.where(role: "user")
+    @authors =   
+      User.joins(:posts)
+        .distinct
+        .select(:id, :name)
+        .order(:name)
   end
 
   def destroy
