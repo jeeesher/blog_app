@@ -9,6 +9,13 @@
             options_from_collection_for_select(@available_authors, :id, :name, params[:author_id]),
             include_blank: "All Authors" %>
 
+        <!-- Filter by Post Title -->
+        <label>Filter by Post:</label>
+        <%= select_tag :post_id,
+            options_from_collection_for_select(@available_posts, :id, :title, params[:post_id]),
+            include_blank: "All Posts" %>
+
+
         <%= submit_tag "Apply Filters" %>
         <%= link_to "Reset", admin_comments_path %>
     </div>
