@@ -23,17 +23,23 @@
   </head>
 
   <body>
-    <nav>
+    <nav style="padding: 10px; background: #f5f5f5; margin-bottom: 20px;">
+      <%= link_to "Home", root_path %> |
       <% if logged_in? %>
         Logged in as <%= current_user.name %> (<%= current_user.role %>) |
-        <%= link_to "Logout", logout_path, method: :delete %>
+        <%= link_to "Logout", logout_path, method: :delete, data: { turbo_method: :delete, confirm: "Log out?" } %>
       <% else %>
         <%= link_to "Login", login_path %>
       <% end %>
     </nav>
 
-    <%= notice %>
-    <%= alert %>
+    <% if notice %>
+      <p style="color: green;"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p style="color: red;"><%= alert %></p>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
