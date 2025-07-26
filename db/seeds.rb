@@ -10,21 +10,21 @@
 
 User.create!(
   name: "Admin User",
-  email: "admin@example.com",
-  password: "password123",
+  email: "admin@gmail.com",
+  password: "admin123",
   role: "admin"
 )
 
 User.create!(
   name: "Ronanne",
-  email: "ronanne@example.com",
-  password: "password123",
+  email: "ronanne@gmail.com",
+  password: "ronanne123",
   role: "user"
 )
 
 User.create!(
   name: "Genie",
-  email: "genie@example.com",
-  password: "password123",
+  email: "genie@gmail.com",
+  password: "genie123",
   role: "user"
 )
