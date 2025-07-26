@@ -3,6 +3,19 @@ class Admin::PostsController < ApplicationController
 
   def index
     @posts = Post.includes(:user).order(created_at: :desc)
+
+    # Search by title
+    if params[:search].present?
+      @posts = @posts.where("title ILIKE ?", "%#{params[:search]}%")
+    end
+
+    # Filter by author
+    if params[:author_id].present?
+      @posts = @posts.where(user_id: params[:author_id])
+    end
+
+    # Load all authors for dropdown filter
+    @authors = User.where(role: "user")
   end
 
   def destroy
