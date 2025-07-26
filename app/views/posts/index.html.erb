@@ -1,0 +1,14 @@
+<h1>All Posts</h1>
+
+<% if logged_in? %>
+    <%= link_to "New Post", new_post_path %>
+<% end %>
+
+<ul>
+    <% @posts.each do |post| %>
+        <li>
+        <h2><%= link_to post.title, post_path(post) %></h2>
+        <p>By <%= post.user.name %> | <%= post.created_at.strftime("%b %d, %Y") %></p>
+        </li>
+    <% end %>
+</ul>
