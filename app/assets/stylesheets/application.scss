@@ -28,3 +28,89 @@ footer {
     text-align: center;
     width: 100%;
 }
+
+/* Navbar Styles */
+.navbar {
+    background-color: $primary !important;
+
+    .nav-link {
+        color: $text-light !important;
+        &:hover {
+        color: $accent !important;
+        }
+    }
+
+    .dropdown-menu {
+        border-radius: 16px;
+        padding: 0.5rem;
+    }
+
+    .dropdown-item {
+        &:hover {
+            background-color: rgba(124, 58, 237, 0.1);
+            border-radius: 8px;
+        }
+        padding-bottom: 5px;
+    }
+}
+
+/* Auth Form Styles */
+.auth-page-container {
+    background: $background;
+
+    .auth-card {
+        width: 600px;
+        padding: 40px 50px;
+        background-color: $background;
+        border: 1px solid $secondary;
+        border-radius: 24px;
+        color: $text-dark;
+        margin: 0;
+    }
+
+    .auth-card h2 {
+        color: $text-dark;
+        text-align: center;
+        margin-bottom: 32px;
+    }
+
+    .auth-form .form-control {
+        border-radius: 8px;
+    }
+
+    .btn-primary {
+        background-color: $primary; 
+        border: none;
+
+    }
+
+    .btn-primary:hover {
+        background-color: #6b29d9;
+    }
+}
+
+
+
+/* Blog Dashboard Styles */
+.blog-post-item {
+    transition: background 0.2s ease;
+
+    h4 {
+        font-size: 1.25rem;
+    }
+
+    .hover-primary:hover {
+        color: $primary;
+    }
+    }
+
+    /* Adjust button style to match screenshot */
+    .btn-outline-primary {
+    color: $primary;
+    border: 3px solid $primary;
+
+    &:hover {
+        background: $primary;
+        color: #fff;
+    }
+}
