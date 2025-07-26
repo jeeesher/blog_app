@@ -1,2 +1,71 @@
-<h1>Admin::Comments#index</h1>
-<p>Find me in app/views/admin/comments/index.html.erb</p>
+<h1>Comments Manager</h1>
+
+<!-- Bulk Delete All Comments -->
+<div style="margin-bottom: 15px;">
+    <%= button_to "Delete ALL Comments",
+        destroy_all_admin_comments_path,
+        method: :delete,
+        data: { confirm: "⚠️ Are you sure you want to delete ALL comments? This cannot be undone!" },
+        style: "background-color: red; color: white; padding: 8px; border: none; cursor: pointer;" %>
+</div>
+
+<!-- Filters -->
+    <%= form_with url: admin_comments_path, method: :get, local: true do %>
+    <div style="margin-bottom: 10px;">
+        <!-- Filter by Author -->
+        <label>Filter by Author:</label>
+        <%= select_tag :author_id,
+            options_from_collection_for_select(@available_authors, :id, :name, params[:author_id]),
+            include_blank: "All Authors" %>
+
+        <!-- Filter by Post Title -->
+        <label>Filter by Post:</label>
+        <%= select_tag :post_id,
+            options_from_collection_for_select(@available_posts, :id, :title, params[:post_id]),
+            include_blank: "All Posts" %>
+
+        <!-- Filter by Date -->
+        <label>From:</label>
+        <%= date_field_tag :start_date, params[:start_date] %>
+
+        <%= submit_tag "Apply Filters" %>
+        <%= link_to "Reset", admin_comments_path %>
+    </div>
+<% end %>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+        <th>Content</th>
+        <th>Post Title</th>
+        <th>Author</th>
+        <th>Date Posted</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @comments.each do |comment| %>
+        <tr>
+            <td><%= truncate(comment.content, length: 50) %></td>
+            <td><%= link_to comment.post.title, admin_post_path(comment.post) %></td>
+            <td><%= comment.user.name %></td>
+            <td><%= comment.created_at.strftime("%b %d, %Y") %></td>
+            <td>
+            <%= link_to "Edit", edit_admin_comment_path(comment) %> |
+            <%= link_to "Delete", admin_comment_path(comment), 
+                    method: :delete,
+                    data: { turbo_method: :delete, confirm: "Delete this comment?" } %>
+            </td>
+            <td>
+                <% if comment.post %>
+                    <%= link_to comment.post.title, admin_post_path(comment.post) %>
+                <% else %>
+                    <em>Post deleted</em>
+                <% end %>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<p><%= link_to "Back to Dashboard", admin_dashboard_path %></p>

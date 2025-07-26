@@ -19,11 +19,17 @@ Rails.application.routes.draw do
   delete "/logout" => "sessions#destroy"
 
   namespace :admin do
-    get "comments/index"
-    get "comments/edit"
-    get "posts/index"
-    get "dashboard", to: "dashboard#index"
-    resources :posts, only: [:index, :destroy]
-    resources :comments, only: [:index, :edit, :update, :destroy]
+    get "dashboard" => "dashboard#index"
+    resources :posts, only: [:index, :show, :destroy] do
+      collection do
+        delete :destroy_all
+      end
+    end
+
+    resources :comments, only: [:index, :edit, :update, :destroy] do
+      collection do
+        delete :destroy_all
+      end
+    end
   end
 end

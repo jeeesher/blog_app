@@ -1,2 +1,62 @@
-<h1>Admin::Posts#index</h1>
-<p>Find me in app/views/admin/posts/index.html.erb</p>
+<h1>Blog Posts Manager</h1>
+<!-- Delete All Posts Button -->
+<div style="margin-bottom: 15px;">
+    <%= button_to "Delete ALL Posts",
+        destroy_all_admin_posts_path,
+        method: :delete,
+        data: { confirm: "⚠️ Are you sure you want to delete ALL posts and their comments? This cannot be undone!" },
+        style: "background-color: red; color: white; padding: 8px; border: none; cursor: pointer;" %>
+</div>
+
+<!-- Search and Filter Form -->
+<%= form_with url: admin_posts_path, method: :get, local: true do %>
+    <div style="margin-bottom: 10px;">
+        <!-- Search by title OR author name -->
+        <label>Search (Title or Author):</label>
+        <%= text_field_tag :search, params[:search] %>
+
+        <!-- Filter by author -->
+        <label>Filter by author:</label>
+        <%= select_tag :author_id,
+            options_from_collection_for_select(@authors, :id, :name, params[:author_id]),
+            include_blank: "All Authors" %>
+
+        <!-- Date filter -->
+        <label>From:</label>
+        <%= date_field_tag :start_date, params[:start_date] %>
+
+        <%= submit_tag "Apply Filters" %>
+        <%= link_to "Reset", admin_posts_path %>
+    </div>
+<% end %>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+        <th>Post Title</th>
+        <th>Author</th>
+        <th>Date Posted</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @posts.each do |post| %>
+            <tr>
+                <td><%= link_to post.title, admin_post_path(post) %></td>
+                <td><%= post.user.name %></td>
+                <td><%= post.created_at.strftime("%b %d, %Y") %></td>
+                <td>
+                <!-- View only this post's comments -->
+                <%= link_to "Comments", admin_comments_path(post_id: post.id) %> |
+
+                <!-- Delete post -->
+                <%= link_to "Delete", admin_post_path(post),
+                        method: :delete,
+                        data: { turbo_method: :delete, confirm: "Delete this post and all its comments?" } %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<p><%= link_to "Dashboard", admin_dashboard_path %></p>
