@@ -59,7 +59,8 @@
                   <li><hr class="dropdown-divider"></li>
                 <% end %>
                 <li>
-                  <%= link_to logout_path, method: :delete, data: { turbo: false, confirm: "Log out?" }, class: "dropdown-item d-flex align-items-start text-primary fw-semibold" do %>
+                  <%= button_to logout_path, method: :delete, data: { confirm: "Log out?" },
+                        class: "dropdown-item d-flex align-items-center text-primary fw-semibold border-0 bg-transparent" do %>
                     <%= image_tag "icons/logout.svg", alt: "Logout", width: 20, height: 20, class: "me-2" %>
                     Logout
                   <% end %>
