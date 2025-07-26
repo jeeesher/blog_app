@@ -8,3 +8,32 @@
 <% end %>
 
 <p><%= link_to "Blog Posts", posts_path %></p>
+
+<hr>
+
+<h2>Comments</h2>
+
+<% if @comments.any? %>
+    <% @comments.each do |comment| %>
+        <small>By <%= comment.user.name %> • <%= comment.created_at.strftime("%b %d, %Y %H:%M") %></small>
+        <p><%= comment.content %></p>
+        
+        <% if logged_in? && (current_user == comment.user || admin?) %>
+            <div>
+            <%= link_to "Edit", edit_post_comment_path(@post, comment) %> |
+            <%= link_to "Delete", post_comment_path(@post, comment),
+                    method: :delete,
+                    data: { turbo_method: :delete, confirm: "Are you sure?" } %>
+            </div>
+        <% end %>
+        </div>
+    <% end %>
+<% else %>
+    <p>No comments yet.</p>
+<% end %>
+
+<% if logged_in? %>
+    <p><%= link_to "Add Comment", new_post_comment_path(@post) %></p>
+<% else %>
+    <p><em>You must log in to leave a comment.</em></p>
+<% end %>

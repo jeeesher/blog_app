@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @comments = @post.comments.includes(:user)
+    @comments = @post.comments.includes(:user).order(created_at: :asc)
     @comment = Comment.new # For comment form
   end
 
