@@ -4,9 +4,11 @@ class Admin::PostsController < ApplicationController
   def index
     @posts = Post.includes(:user).order(created_at: :desc)
 
-    # Search by title
+    # Search by title or author name
     if params[:search].present?
-      @posts = @posts.where("title ILIKE ?", "%#{params[:search]}%")
+      query = "%#{params[:search]}%"
+      @posts = @posts.joins(:user)
+                      .where("LOWER(posts.title) LIKE LOWER(?) OR LOWER(users.name) LIKE LOWER(?)", query, query)
     end
 
     # Filter by author

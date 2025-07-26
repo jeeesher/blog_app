@@ -3,8 +3,9 @@
 <!-- Search and Filter Form -->
 <%= form_with url: admin_posts_path, method: :get, local: true do %>
     <div style="margin-bottom: 10px;">
-        # <label>Search by title:</label>
-        # <%= text_field_tag :search, params[:search] %>
+        <!-- Search by title OR author name -->
+        <label>Search (Title or Author):</label>
+        <%= text_field_tag :search, params[:search] %>
 
         <!-- Filter by author -->
         <label>Filter by author:</label>
