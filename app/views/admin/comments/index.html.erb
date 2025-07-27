@@ -1,71 +1,84 @@
-<h1>Comments Manager</h1>
+<div class="container my-4 post-content">
+    <%= link_to "#", class: "simple-btn-accent d-flex align-items-center mb-2", onclick: "window.history.back(); return false;" do %>
+        <%= image_tag "icons/arrow-left.svg", alt: "Back", width: 20, height: 20, class: "me-2" %>
+        Back
+    <% end %>
 
-<!-- Bulk Delete All Comments -->
-<div style="margin-bottom: 15px;">
-    <%= button_to "Delete ALL Comments",
-        destroy_all_admin_comments_path,
-        method: :delete,
-        data: { confirm: "⚠️ Are you sure you want to delete ALL comments? This cannot be undone!" },
-        style: "background-color: red; color: white; padding: 8px; border: none; cursor: pointer;" %>
-</div>
 
-<!-- Filters -->
-    <%= form_with url: admin_comments_path, method: :get, local: true do %>
-    <div style="margin-bottom: 10px;">
-        <!-- Filter by Author -->
-        <label>Filter by Author:</label>
-        <%= select_tag :author_id,
-            options_from_collection_for_select(@available_authors, :id, :name, params[:author_id]),
-            include_blank: "All Authors" %>
-
-        <!-- Filter by Post Title -->
-        <label>Filter by Post:</label>
-        <%= select_tag :post_id,
-            options_from_collection_for_select(@available_posts, :id, :title, params[:post_id]),
-            include_blank: "All Posts" %>
-
-        <!-- Filter by Date -->
-        <label>From:</label>
-        <%= date_field_tag :start_date, params[:start_date] %>
-
-        <%= submit_tag "Apply Filters" %>
-        <%= link_to "Reset", admin_comments_path %>
-    </div>
-<% end %>
-
-<table border="1" cellpadding="5">
-    <thead>
-        <tr>
-        <th>Content</th>
-        <th>Post Title</th>
-        <th>Author</th>
-        <th>Date Posted</th>
-        <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @comments.each do |comment| %>
-        <tr>
-            <td><%= truncate(comment.content, length: 50) %></td>
-            <td><%= link_to comment.post.title, admin_post_path(comment.post) %></td>
-            <td><%= comment.user.name %></td>
-            <td><%= comment.created_at.strftime("%b %d, %Y") %></td>
-            <td>
-            <%= link_to "Edit", edit_admin_comment_path(comment) %> |
-            <%= link_to "Delete", admin_comment_path(comment), 
-                    method: :delete,
-                    data: { turbo_method: :delete, confirm: "Delete this comment?" } %>
-            </td>
-            <td>
-                <% if comment.post %>
-                    <%= link_to comment.post.title, admin_post_path(comment.post) %>
-                <% else %>
-                    <em>Post deleted</em>
-                <% end %>
-            </td>
-        </tr>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Comments Manager</h2>
+            <%= button_to destroy_all_admin_comments_path,
+            data: { "turbo-method": :delete, "turbo_confirm": "⚠️ Are you sure you want to delete ALL comments? This cannot be undone!" },
+            class: "btn btn-primary fw-semibold rounded-pill px-4" do %>
+            Delete All Comments
         <% end %>
-    </tbody>
-</table>
+    </div>
 
-<p><%= link_to "Back to Dashboard", admin_dashboard_path %></p>
+    <%= form_with url: admin_comments_path, method: :get, local: true do %>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <!-- Filters -->
+            <div class="d-flex align-items-center gap-3 flex-nowrap">
+                <!-- Filter by Author -->
+                <div style="width: 250px; flex: 0 0 auto;">
+                    <%= label_tag :author_id, "Author", class: "form-label fw-semibold" %>
+                    <%= select_tag :author_id,
+                                options_from_collection_for_select(@available_authors, :id, :name, params[:author_id]),
+                                include_blank: "All Authors",
+                                class: "form-select form-select-sm" %>
+                </div>
+
+                <!-- Filter by Post Title -->
+                <div style="width: 250px; flex: 0 0 auto;">
+                    <%= label_tag :post_id, "Post", class: "form-label fw-semibold" %>
+                    <%= select_tag :post_id,
+                                options_from_collection_for_select(@available_posts, :id, :title, params[:post_id]),
+                                include_blank: "All Posts",
+                                class: "form-select form-select-sm" %>
+                </div>
+
+                <!-- Date Filter -->
+                <div style="width: 250px; flex: 0 0 auto;">
+                    <%= label_tag :start_date, "From Date", class: "form-label fw-semibold" %>
+                    <%= date_field_tag :start_date, params[:start_date], class: "form-control form-control-sm" %>
+                </div>
+
+                <!-- Buttons -->
+                <div class="filter-btn d-flex gap-2">
+                    <%= submit_tag "Apply", class: "btn btn-primary px-3 rounded-pill" %>
+                    <%= link_to "Reset", admin_comments_path, class: "btn btn-outline-primary px-3 rounded-pill" %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+
+    <div class="table-responsive mt-4">
+        <table class="table custom-table align-middle">
+            <thead>
+                <tr>
+                    <th>Content</th>
+                    <th>Post Title</th>
+                    <th>Author</th>
+                    <th>Date Posted</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @comments.each do |comment| %>
+                    <tr>
+                        <td><%= truncate(comment.content, length: 50) %></td>
+                        <td><%= link_to comment.post.title, admin_post_path(comment.post), class: "fw-semibold text-decoration-none text-dark hover-primary" %></td>
+                        <td><%= comment.user.name %></td>
+                        <td><%= comment.created_at.strftime("%b %d, %Y") %></td>
+                        <td>
+                            <%= link_to "Edit", edit_admin_comment_path(comment), class: "btn simple-btn-accent text-uppercase ps-0 fw-semibold" %>
+                            <%= link_to admin_comment_path(comment),
+                                data: { "turbo_method": :delete, "turbo-confirm": "Delete this comment?" }, class: "btn simple-btn-primary text-uppercase fw-semibold" do  %>
+                                Delete
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
