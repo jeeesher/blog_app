@@ -1,5 +1,5 @@
 <div class="container my-4 post-content">
-    <%= link_to admin_posts_path, class: "simple-btn d-flex align-items-center mb-2" do %>
+    <%= link_to "#", class: "simple-btn d-flex align-items-center mb-2", onclick: "window.history.back(); return false;" do %>
         <%= image_tag "icons/arrow-left.svg", alt: "Back", width: 20, height: 20, class: "me-2" %>
         Back
     <% end %>
@@ -36,13 +36,22 @@
             </span>
 
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <p><%= comment.content %></p>
+                <p class="mb-0"><%= comment.content %></p>
 
-                <div>
-                    <%= link_to "Edit", edit_admin_comment_path(comment) %> |
-                    <%= link_to "Delete", admin_comment_path(comment),
-                        method: :delete,
-                        data: { confirm: "Delete this comment?" } %>
+                <div class="d-flex gap-2">
+                    <%= link_to edit_admin_comment_path(comment),
+                                class: "btn btn-icon-edit",
+                                title: "Edit Comment" do %>
+                    <%= image_tag "icons/edit.svg", alt: "Edit", width: 20, height: 20 %>
+                    <% end %>
+
+                    <%= link_to admin_comment_path(comment),
+                                method: :delete,
+                                data: { turbo_method: :delete, confirm: "Delete this comment?" },
+                                class: "btn btn-icon-delete text-danger",
+                                title: "Delete Comment" do %>
+                    <%= image_tag "icons/trash.svg", alt: "Delete", width: 20, height: 20 %>
+                    <% end %>
                 </div>
             </div>
         <% end %>
