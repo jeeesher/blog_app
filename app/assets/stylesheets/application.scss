@@ -252,6 +252,8 @@ html, body {
   border-collapse: separate;
   border-spacing: 0;
   background: $background;
+  table-layout: fixed;
+  width: 100%;
 }
 
 .custom-table thead th {
@@ -262,7 +264,6 @@ html, body {
   padding: 12px;
   padding-left: 24px;
   text-align: left;
-  width: 20%;
 }
 
 .custom-table tbody td {
@@ -270,7 +271,6 @@ html, body {
   padding: 12px;
   padding-left: 24px;
   text-align: left;
-  width: 20%;
 }
 
 .custom-table tbody tr:last-child td {
