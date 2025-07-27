@@ -45,6 +45,23 @@ html, body {
   }
 }
 
+
+/* Action Dropdown Styles */
+.action-dropdown {
+    .dropdown-menu {
+        border-radius: 16px;
+        padding: 0.5rem;
+    }
+
+    .dropdown-item {
+        &:hover {
+            background-color: rgba(124, 58, 237, 0.1);
+            border-radius: 8px;
+        }
+        padding-bottom: 5px;
+    }
+}
+
 /* Auth Form Styles */
 .auth-page-container {
   background: $background;
