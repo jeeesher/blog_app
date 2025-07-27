@@ -60,7 +60,7 @@
             </thead>
             <tbody>
                 <% @posts.each do |post| %>
-                    <tr>
+                    <tr id="<%= dom_id(post) %>">
                         <td>
                             <%= link_to post.title, admin_post_path(post), class: "fw-semibold text-decoration-none text-dark hover-primary" %>
                         </td>
