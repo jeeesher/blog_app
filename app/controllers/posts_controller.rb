@@ -42,13 +42,15 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: "Post deleted successfully!"
+    redirect_back fallback_location: posts_path, notice: "Post deleted successfully!"
   end
 
   private
 
   def set_post
     @post = Post.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to posts_path, alert: "That post no longer exists."
   end
 
   def post_params
