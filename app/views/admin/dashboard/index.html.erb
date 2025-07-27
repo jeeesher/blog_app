@@ -45,7 +45,7 @@
         <span class="mx-1">|</span>
         <span><%= time_ago_in_words(comment.created_at) %> ago</span>
         <span class="mx-1">|</span>
-        <strong><%= comment.post.title %></strong>
+        <strong>"<%= comment.post.title %>"</strong>
       </div>
     <hr>
   <% end %>

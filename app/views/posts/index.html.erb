@@ -9,23 +9,55 @@
     </div>
 
     <!-- Blog Posts List -->
-    <% @posts.each do |post| %>
-        <div class="blog-post-item py-2">
-            <div class="mb-1 text-muted">
-                <span class="text-uppercase fw-bold"><%= post.user.name %></span>
-                <span class="mx-1">|</span> 
-                <span class="fw-normal"><%= post.created_at.strftime("%B %d, %Y") %></span>
+    <% if @posts.any? %>
+        <% @posts.each do |post| %>
+            <div class="blog-post-item py-2">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="mb-1 text-muted">
+                        <span class="text-uppercase fw-bold"><%= post.user.name %></span>
+                        <span class="mx-1">|</span> 
+                        <span class="fw-normal"><%= post.created_at.strftime("%B %d, %Y") %></span>
+                    </div>
+
+                    <% if logged_in? && (current_user == post.user || admin?) %>
+                        <div class="action-dropdown">
+                            <button class="btn" type="button" id="postActionsDropdown<%= post.id %>" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="postActionsDropdown<%= post.id %>">
+                            <li>
+                                <%= link_to "Edit", edit_post_path(post), class: "dropdown-item" %>
+                            </li>
+                            <li>
+                                <%= link_to "Delete", post_path(post),
+                                            data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this post?" },
+                                            class: "dropdown-item text-danger" %>
+                            </li>
+                            </ul>
+                        </div>
+                    <% end %>
+                </div>
+                
+                <h4 class="fw-bold mt-2">
+                    <%= link_to post.title, post_path(post), class: "text-dark text-decoration-none hover-primary" %>
+                </h4>
+
+                <p class="text-muted mb-0">
+                    <%= truncate(post.body, length: 120) %>
+                </p>
             </div>
 
-            <h4 class="fw-bold mt-2">
-                <%= link_to post.title, post_path(post), class: "text-dark text-decoration-none hover-primary" %>
-            </h4>
-
-            <p class="text-muted mb-0">
-                <%= truncate(post.body, length: 120) %>
-            </p>
-        </div>
-
-        <hr>
+            <hr>
+        <% end %>
+    <% else %>
+        <% if logged_in? %>
+            <div class="text-center py-5">
+                <p class="text-muted">No posts available. <br> Click add new post to create one.</p>
+            </div>
+        <% else %>
+            <div class="text-center py-5">
+                <p class="text-muted">No posts available. <br> You must log in to create a post.</p>
+            </div>
+        <% end %>
     <% end %>
 </div>

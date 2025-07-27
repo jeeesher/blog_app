@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to post_path(@post), notice: "Comment deleted successfully!"
+    redirect_to post_path(@post), notice: "Comment deleted successfully!",  status: :see_other
   end
 
   private

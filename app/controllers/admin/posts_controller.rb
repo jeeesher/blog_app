@@ -43,9 +43,12 @@ class Admin::PostsController < ApplicationController
         redirect_to admin_posts_path, notice: "Post deleted successfully."
       end
 
-      # Turbo request → force a full page redirect instead of staying on deleted page
       format.turbo_stream do
-        render turbo_stream: turbo_stream.redirect(admin_posts_path)
+        if request.referer&.include?(admin_posts_path) 
+          render turbo_stream: turbo_stream.remove(@post)
+        else
+          render turbo_stream: turbo_stream.redirect(admin_posts_path)
+        end
       end
     end
   end

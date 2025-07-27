@@ -15,6 +15,11 @@
         <%= f.text_area :content, rows: 4, required: true, class: "form-control rounded-2" %>
     </div>
 
+    <p class="text-muted small">
+        Editing comment on
+        <em><%= @comment.post.title %></em>
+    </p>
+
     <div class="d-flex justify-content-end gap-2">
         <%= link_to "Cancel", (request.referer || post_path(@post)), class: "btn btn-outline-primary rounded-pill px-4" %>
         <%= f.submit "Save",
