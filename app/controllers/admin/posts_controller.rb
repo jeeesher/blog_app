@@ -33,8 +33,6 @@ class Admin::PostsController < ApplicationController
 
   def show
     @comments = @post.comments.includes(:user).order(created_at: :asc)
-    Rails.logger.debug ">>> @post = #{@post.inspect}"
-    Rails.logger.debug ">>> @comments count = #{@comments.size}"
   end
 
   def destroy
