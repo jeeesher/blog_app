@@ -1,39 +1,73 @@
-<h1><%= @post.title %></h1>
-<p><em>By <%= @post.user.name %> • <%= @post.created_at.strftime("%b %d, %Y") %></em></p>
-<p><%= @post.body %></p>
+<div class="container my-4 post-content">
+    <%= link_to posts_path, class: "simple-btn-accent d-flex align-items-center mb-2" do %>
+        <%= image_tag "icons/arrow-left.svg", alt: "Back", width: 20, height: 20, class: "me-2" %>
+        Back
+    <% end %>
 
-<% if logged_in? && (current_user == @post.user || admin?) %>
-    <%= link_to "Edit", edit_post_path(@post) %> |
-    <%= link_to "Delete", post_path(@post), method: :delete, data: { turbo_method: :delete, confirm: "Are you sure?" } %>
-<% end %>
+    <h3><%= @post.title %></h3>
 
-<p><%= link_to "Blog Posts", posts_path %></p>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted">
+            <span class="text-uppercase fw-bold"><%= @post.user.name %></span>
+            <span class="mx-1">|</span>
+            <span class="fw-normal"><%= @post.created_at.strftime("%b %d, %Y") %></span>
+        </span>
 
-<hr>
+        <div class="d-flex gap-2">
+            <% if logged_in? && (current_user == @post.user || admin?) %>
+                <%= link_to edit_post_path(@post), class: "btn btn-icon-edit", title: "Edit Post" do %>
+                    <%= image_tag "icons/edit.svg", alt: "Edit", width: 20, height: 20 %>
+                <% end %>
+                <%= link_to post_path(@post),
+                            method: :delete,
+                            data: { turbo_method: :delete, confirm: "Are you sure?" },
+                            class: "btn btn-icon-delete text-danger",
+                            title: "Delete Post" do %>
+                    <%= image_tag "icons/trash.svg", alt: "Delete", width: 20, height: 20 %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
 
-<h2>Comments</h2>
+    <p><%= @post.body %></p>
 
-<% if @comments.any? %>
-    <% @comments.each do |comment| %>
-        <small>By <%= comment.user.name %> • <%= comment.created_at.strftime("%b %d, %Y %H:%M") %></small>
-        <p><%= comment.content %></p>
-        
-        <% if logged_in? && (current_user == comment.user || admin?) %>
-            <div>
-            <%= link_to "Edit", edit_post_comment_path(@post, comment) %> |
-            <%= link_to "Delete", post_comment_path(@post, comment),
-                    method: :delete,
-                    data: { turbo_method: :delete, confirm: "Are you sure?" } %>
+    <hr>
+
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3>Comments</h3>
+
+        <% if logged_in? %>
+            <p><%= link_to "Add Comment", new_post_comment_path(@post), class: "btn btn-outline-primary  rounded-pill px-4" %></p>
+        <% else %>
+            <p><em>You must log in to leave a comment.</em></p>
+        <% end %>
+    </div>
+
+    <% if @comments.any? %>
+        <% @comments.each do |comment| %>
+            <span>
+                <span class="text-uppercase fw-bold"><%= comment.user.name %></span>
+                <span class="mx-1">|</span>
+                <span class="fw-normal"><%= comment.created_at.strftime("%b %d, %Y") %></span>
+            </span>
+            
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <p><%= comment.content %></p>
+                
+                <% if logged_in? && (current_user == comment.user || admin?) %>
+                    <div>
+                    <%= link_to "Edit", edit_post_comment_path(@post, comment) %> |
+                    <%= link_to "Delete", post_comment_path(@post, comment),
+                            method: :delete,
+                            data: { turbo_method: :delete, confirm: "Are you sure?" } %>
+                    </div>
+                <% end %>
+                </div>
             </div>
         <% end %>
-        </div>
+    <% else %>
+        <span class="text-muted justify-content-center d-flex">
+            <p>No comments yet.</p>
+        </span>
     <% end %>
-<% else %>
-    <p>No comments yet.</p>
-<% end %>
-
-<% if logged_in? %>
-    <p><%= link_to "Add Comment", new_post_comment_path(@post) %></p>
-<% else %>
-    <p><em>You must log in to leave a comment.</em></p>
-<% end %>
+</div>

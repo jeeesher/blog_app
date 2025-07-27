@@ -1,18 +1,31 @@
-<h1>Recent Blog Posts</h1>
+<div class="container my-5">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Recent Blog Posts</h2>
+        
+        <% if logged_in? %>
+            <%= link_to "Add New Post", new_post_path, class: "btn btn-outline-primary rounded-pill fw-semibold px-4" %>
+        <% end %>
+    </div>
 
-<% if logged_in? %>
-    <p>
-        <%= link_to "My Posts", my_posts_posts_path %> |
-        <%= link_to "New Post", new_post_path %>
-    </p>
-<% end %>
-
-<ul>
+    <!-- Blog Posts List -->
     <% @posts.each do |post| %>
-        <li style="margin-bottom: 15px;">
-            <p>By <%= post.user.name %> | <%= post.created_at.strftime("%b %d, %Y") %></p>
-            <h2><%= link_to post.title, post_path(post) %></h2>
-            <p><%= truncate(post.body, length: 120) %></p>
-        </li>
+        <div class="blog-post-item py-2">
+            <div class="mb-1 text-muted">
+                <span class="text-uppercase fw-bold"><%= post.user.name %></span>
+                <span class="mx-1">|</span> 
+                <span class="fw-normal"><%= post.created_at.strftime("%B %d, %Y") %></span>
+            </div>
+
+            <h4 class="fw-bold mt-2">
+                <%= link_to post.title, post_path(post), class: "text-dark text-decoration-none hover-primary" %>
+            </h4>
+
+            <p class="text-muted mb-0">
+                <%= truncate(post.body, length: 120) %>
+            </p>
+        </div>
+
+        <hr>
     <% end %>
-</ul>
+</div>

@@ -36,9 +36,18 @@ class Admin::PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find(params[:id])
-    post.destroy
-    redirect_to admin_posts_path, notice: "Post deleted successfully."
+    @post.destroy
+
+    respond_to do |format|
+      format.html do
+        redirect_to admin_posts_path, notice: "Post deleted successfully."
+      end
+
+      # Turbo request → force a full page redirect instead of staying on deleted page
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.redirect(admin_posts_path)
+      end
+    end
   end
 
   def destroy_all

@@ -7,8 +7,8 @@ class SessionsController < ApplicationController
 
   if user && user.authenticate(params[:password])
     session[:user_id] = user.id
-    
-    if user.role == "admin"
+
+    if user.admin?
       redirect_to admin_dashboard_path, notice: "Welcome back, Admin!"
     else
       redirect_to posts_path, notice: "Logged in successfully"
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
 
   else
     flash.now[:alert] = "Invalid email or password"
-    render :new
+    render :new, status: :unprocessable_entity
   end
 end
 

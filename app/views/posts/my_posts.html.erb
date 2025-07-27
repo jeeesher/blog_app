@@ -1,20 +1,43 @@
-<h1>Blog Posts</h1>
+<div class="container my-5">
+    <%= link_to root_path, class: "simple-btn-accent d-flex align-items-center mb-2" do %>
+        <%= image_tag "icons/arrow-left.svg", alt: "Back", width: 20, height: 20, class: "me-2" %>
+        Back
+    <% end %>
 
-<p>
-    <%= link_to "New Post", new_post_path %> |
-    <%= link_to "Recent Blog Posts", root_path %>
-</p>
 
-<% if @posts.any? %>
-    <ul>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">My Blog Posts</h2>
+        <div>
+            <%= link_to "Add New Post", new_post_path, class: "btn btn-primary rounded-pill px-4" %>
+            
+        </div>
+    </div>
+
+    <% if @posts.any? %>
         <% @posts.each do |post| %>
-        <li style="margin-bottom: 15px;">
-            <p>By <%= post.user.name %> | <%= post.created_at.strftime("%b %d, %Y") %></p>
-            <h2><%= link_to post.title, post_path(post) %></h2>
-            <p><%= truncate(post.body, length: 120) %></p>
-        </li>
+            <div class="blog-post-item py-3 border-bottom">
+            <!-- Author + Date -->
+            <div class="mb-1">
+                <small class="text-uppercase text-muted">
+                <span class="fw-bold"><%= post.user.name %></span>
+                <span class="mx-1">|</span>
+                <span class="fw-normal"><%= post.created_at.strftime("%B %d, %Y") %></span>
+                </small>
+            </div>
+
+            <!-- Post Title -->
+            <h4 class="fw-bold mb-1">
+                <%= link_to post.title, post_path(post), class: "text-decoration-none text-dark hover-primary" %>
+            </h4>
+
+            <!-- Excerpt -->
+            <p class="text-muted mb-0"><%= truncate(post.body, length: 120) %></p>
+            </div>
         <% end %>
-    </ul>
-<% else %>
-    <p>You haven’t written any posts yet.</p>
-<% end %>
+        <% else %>
+        <div class="text-center py-5">
+            <p class="text-muted mb-3">You haven’t written any posts yet.</p>
+            <%= link_to "Write your first post", new_post_path, class: "btn btn-primary rounded-pill px-4" %>
+        </div>
+    <% end %>
+</div>

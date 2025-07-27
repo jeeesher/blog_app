@@ -37,6 +37,7 @@ class Admin::CommentsController < ApplicationController
   end
 
   def update
+    @comment = Comment.find(params[:id])
     if @comment.update(comment_params)
       redirect_to admin_comments_path, notice: "Comment updated successfully."
     else

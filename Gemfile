@@ -2,8 +2,6 @@ source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
-# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft"
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 2.1"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -38,6 +36,10 @@ gem "kamal", require: false
 gem "thruster", require: false
 
 gem "bcrypt", "~> 3.1.7"
+gem "sprockets-rails"
+gem "sassc-rails"
+gem "bootstrap", "~> 5.3.0"
+
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"

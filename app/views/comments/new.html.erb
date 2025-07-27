@@ -1,5 +1,6 @@
-<h2>New Comment for "<%= @post.title %>"</h2>
-
-<%= render "form", post: @post, comment: @comment %>
-
-<p><%= link_to "Back to Post", post_path(@post) %></p>
+<div class="post-form-container mx-auto mt-5">
+    <div class="post-form-card">
+        <h3 class="fw-bold mb-4">New Comment</h3>
+        <%= render "form", post: @post, comment: @comment %>
+    </div>
+</div>

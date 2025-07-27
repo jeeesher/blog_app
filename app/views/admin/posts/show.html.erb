@@ -1,36 +1,61 @@
-<h1><%= @post.title %></h1>
-<p><em>By <%= @post.user.name %> • <%= @post.created_at.strftime("%b %d, %Y") %></em></p>
-<p><%= @post.body %></p>
-
-<!-- Admin Delete Post Button -->
-<div style="margin: 15px 0;">
-    <%= link_to "Delete Post", admin_post_path(@post),
-        method: :delete,
-        data: { turbo_method: :delete, confirm: "Are you sure you want to delete this post and all its comments?" },
-        style: "color: red;" %>
-</div>
-
-<hr>
-
-<h2>Comments</h2>
-
-<% if @comments.any? %>
-    <% @comments.each do |comment| %>
-        <div style="margin-bottom: 15px; padding: 10px; border-bottom: 1px solid #ddd;">
-        <p><%= comment.content %></p>
-        <small>By <%= comment.user.name %> • <%= comment.created_at.strftime("%b %d, %Y %H:%M") %></small>
-
-        <!-- Admin can edit or delete any comment -->
-        <div>
-            <%= link_to "Edit", edit_admin_comment_path(comment) %> |
-            <%= link_to "Delete", admin_comment_path(comment),
-                method: :delete,
-                data: { confirm: "Delete this comment?" } %>
-        </div>
-        </div>
+<div class="container my-4 post-content">
+    <%= link_to "#", class: "simple-btn-accent d-flex align-items-center mb-2", onclick: "window.history.back(); return false;" do %>
+        <%= image_tag "icons/arrow-left.svg", alt: "Back", width: 20, height: 20, class: "me-2" %>
+        Back
     <% end %>
-<% else %>
-    <p>No comments yet.</p>
-<% end %>
 
-<p><%= link_to "Back to Posts Manager", admin_posts_path %></p>
+    <h3><%= @post.title %></h3>
+
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="text-muted">
+            <span class="text-uppercase fw-bold"><%= @post.user.name %></span>
+            <span class="mx-1">|</span>
+            <span class="fw-normal"><%= @post.created_at.strftime("%b %d, %Y") %></span>
+        </span>
+
+        <%= link_to admin_post_path(@post),
+            data: { "turbo-method": :delete, "turbo-confirm": "Are you sure you want to delete this post and all its comments?" },
+            class: "btn btn-icon-delete",
+            title: "Delete Post" do %>
+            <%= image_tag "icons/trash.svg", alt: "Delete", width: 20, height: 20 %>
+        <% end %>
+    </div>
+
+    <p><%= @post.body %></p>
+
+    <hr>
+
+    <h3>Comments</h3>
+
+    <% if @comments.any? %>
+        <% @comments.each do |comment| %>
+            <span>
+                <span class="text-uppercase fw-bold"><%= comment.user.name %></span>
+                <span class="mx-1">|</span>
+                <span class="fw-normal"><%= comment.created_at.strftime("%b %d, %Y") %></span>
+            </span>
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <p class="mb-0"><%= comment.content %></p>
+
+                <div class="d-flex gap-2">
+                    <%= link_to edit_admin_comment_path(comment),
+                                class: "btn btn-icon-edit",
+                                title: "Edit Comment" do %>
+                    <%= image_tag "icons/edit.svg", alt: "Edit", width: 20, height: 20 %>
+                    <% end %>
+
+                    <%= link_to admin_comment_path(comment),
+                                method: :delete,
+                                data: { turbo_method: :delete, confirm: "Delete this comment?" },
+                                class: "btn btn-icon-delete text-danger",
+                                title: "Delete Comment" do %>
+                    <%= image_tag "icons/trash.svg", alt: "Delete", width: 20, height: 20 %>
+                    <% end %>
+                </div>
+            </div>
+        <% end %>
+    <% else %>
+        <span class="text-muted justify-content-center d-flex"><p>No comments yet.</p></span>
+    <% end %>
+</div>

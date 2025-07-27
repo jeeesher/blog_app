@@ -1,3 +1,6 @@
-<h1>New Blog Post</h1>
-
-<%= render "form" %>
+<div class="post-form-container mx-auto mt-5">
+    <div class="post-form-card">
+        <h3 class="fw-bold mb-4">New Blog Post</h3>
+        <%= render "form", post: @post %>
+    </div>
+</div>

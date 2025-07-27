@@ -1,0 +1,261 @@
+$primary: #7c3aed;
+$secondary: #6b7280;
+$accent: #ec4899;
+$background: #fefcfb;
+$text-dark: #374151;
+$text-light: #fefcfb;
+$text-gray: #596271;
+$success: #059669;
+$error: #dc2626;
+
+@import "bootstrap";
+
+html, body {
+  font-family: "Poppins", sans-serif;
+  background: $background;
+  color: $text-dark;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+}
+
+/* Navbar Styles */
+.navbar {
+  background-color: $primary !important;
+
+  .nav-link {
+    color: $text-light !important;
+    &:hover {
+      color: $accent !important;
+    }
+  }
+
+  .dropdown-menu {
+    border-radius: 16px;
+    padding: 0.5rem;
+  }
+
+  .dropdown-item {
+    &:hover {
+      background-color: rgba(124, 58, 237, 0.1);
+      border-radius: 8px;
+    }
+    padding-bottom: 5px;
+  }
+}
+
+/* Auth Form Styles */
+.auth-page-container {
+  background: $background;
+
+  .auth-card {
+    width: 600px;
+    padding: 40px 50px;
+    background-color: $background;
+    border: 1px solid $secondary;
+    border-radius: 24px;
+    color: $text-dark;
+    margin: 0;
+  }
+
+  .auth-card h2 {
+    color: $text-dark;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .auth-form .form-control {
+    border-radius: 8px;
+  }
+}
+
+/* Blog Dashboard Styles */
+.blog-post-item {
+  transition: background 0.2s ease;
+
+  h4 {
+    font-size: 1.25rem;
+  }
+
+  .hover-primary:hover {
+    color: $primary;
+  }
+}
+
+/* Button Styles */
+
+.btn-outline-primary {
+  color: $primary;
+  border: 3px solid $primary;
+
+  &:hover {
+    background: $primary;
+    color: $text-light;
+  }
+}
+
+.btn-primary {
+  background-color: $primary;
+  border: none;
+
+  &:hover {
+    background-color: #6b29d9;
+  }
+}
+
+.simple-btn-accent {
+  color: $accent;
+
+  &:hover {
+    color: darken($accent, 10%);
+  }
+}
+
+.simple-btn-primary {
+    color: $primary;
+    
+    &:hover {
+        color: darken($primary, 10%);
+    }
+}
+
+.btn-icon-delete {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: $primary;
+  border-radius: 50%;
+  transition: all 0.1s ease-in-out;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background: darken($primary, 5%);
+  }
+
+  &:active {
+    background: darken($primary, 5%);
+    transform: scale(0.95);
+  }
+}
+
+.btn-icon-edit {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  border: $primary 3px solid;
+  transition: all 0.1s ease-in-out;
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background: darken($primary, 5%);
+    img {
+      filter: brightness(0) invert(1); /* makes the icon white */
+    }
+  }
+}
+
+/* Post Form Styles */
+.post-form-container {
+  max-width: 700px;
+}
+
+.post-form-card {
+  border: 2px solid $primary;
+  border-radius: 16px;
+  padding: 40px;
+}
+
+.post-form-card h3 {
+  color: $text-dark;
+}
+
+.form-control {
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.form-label {
+  color: $text-gray;
+}
+
+/* Post Show Styles */
+.post-content {
+  padding: 20px;
+
+  h3 {
+    margin-bottom: 10px;
+    color: $text-dark;
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    color: $text-dark;
+    font-weight: 400;
+  }
+}
+
+/* Filter Styles */
+.filter-container .form-control,
+.filter-container .form-select {
+  height: calc(1.5em + 0.5rem + 2px);
+  font-size: 15px;
+  border-radius: 8px;
+  color: $text-gray;
+}
+
+.filter-btn {
+  .btn {
+    height: 36px;
+    width: 100px;
+  }
+}
+
+/* Table Styles */
+.custom-table {
+  border-radius: 12px;
+  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: $background;
+}
+
+.custom-table thead th {
+  background-color: #f8f9fa;
+  color: $text-dark;
+  font-weight: bold;
+  border-bottom: 2px solid #dee2e6;
+  padding: 12px;
+  padding-left: 24px;
+  text-align: left;
+  width: 20%;
+}
+
+.custom-table tbody td {
+  border-bottom: 1px solid #e9ecef;
+  padding: 12px;
+  padding-left: 24px;
+  text-align: left;
+  width: 20%;
+}
+
+.custom-table tbody tr:last-child td {
+  border-bottom: none;
+}

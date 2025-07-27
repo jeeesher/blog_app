@@ -1,8 +1,8 @@
 <%= form_with model: @post, local: true do |f| %>
     <% if @post.errors.any? %>
-        <div style="color: red;">
-        <h3><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h3>
-        <ul>
+        <div class="alert alert-danger">
+        <h5 class="fw-bold"><%= pluralize(@post.errors.count, "error") %> prevented this post from being saved:</h5>
+        <ul class="mb-0">
             <% @post.errors.full_messages.each do |message| %>
             <li><%= message %></li>
             <% end %>
@@ -11,20 +11,23 @@
     <% end %>
 
     <!-- Title -->
-    <div>
-        <%= f.label :title %><br>
-        <%= f.text_field :title, required: true %>
+    <div class="mb-3">
+        <%= f.label :title, "Title", class: "form-label fw-semibold" %>
+        <%= f.text_field :title, required: true, class: "form-control rounded-2" %>
     </div>
 
     <!-- Body -->
-    <div>
-        <%= f.label :body %><br>
-        <%= f.text_area :body, rows: 6, required: true %>
+    <div class="mb-4">
+        <%= f.label :body, "Body", class: "form-label fw-semibold" %>
+        <%= f.text_area :body, rows: 6, required: true, class: "form-control rounded-2" %>
     </div>
 
     <!-- Buttons -->
-    <div style="margin-top: 10px;">
-        <%= link_to "Cancel", (request.referer || root_path), class: "btn-cancel" %>
-        <%= f.submit "Save", class: "btn-save" %>
+    <div class="d-flex justify-content-end gap-2">
+        <%= link_to "Cancel", (request.referer || root_path),
+            class: "btn btn-outline-primary rounded-pill px-4" %>
+        <%= f.submit (@post.persisted? ? "Update" : "Save"),
+            class: "btn btn-primary rounded-pill px-4" %>
     </div>
 <% end %>
+
