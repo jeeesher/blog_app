@@ -1,62 +1,86 @@
-<h1>Blog Posts Manager</h1>
-<!-- Delete All Posts Button -->
-<div style="margin-bottom: 15px;">
-    <%= button_to "Delete ALL Posts",
-        destroy_all_admin_posts_path,
-        method: :delete,
-        data: { confirm: "⚠️ Are you sure you want to delete ALL posts and their comments? This cannot be undone!" },
-        style: "background-color: red; color: white; padding: 8px; border: none; cursor: pointer;" %>
-</div>
+<div class="container my-4 post-content">
+    <%= link_to "#", class: "simple-btn-accent d-flex align-items-center mb-2", onclick: "window.history.back(); return false;" do %>
+        <%= image_tag "icons/arrow-left.svg", alt: "Back", width: 20, height: 20, class: "me-2" %>
+        Back
+    <% end %>
 
-<!-- Search and Filter Form -->
-<%= form_with url: admin_posts_path, method: :get, local: true do %>
-    <div style="margin-bottom: 10px;">
-        <!-- Search by title OR author name -->
-        <label>Search (Title or Author):</label>
-        <%= text_field_tag :search, params[:search] %>
-
-        <!-- Filter by author -->
-        <label>Filter by author:</label>
-        <%= select_tag :author_id,
-            options_from_collection_for_select(@authors, :id, :name, params[:author_id]),
-            include_blank: "All Authors" %>
-
-        <!-- Date filter -->
-        <label>From:</label>
-        <%= date_field_tag :start_date, params[:start_date] %>
-
-        <%= submit_tag "Apply Filters" %>
-        <%= link_to "Reset", admin_posts_path %>
-    </div>
-<% end %>
-
-<table border="1" cellpadding="5">
-    <thead>
-        <tr>
-        <th>Post Title</th>
-        <th>Author</th>
-        <th>Date Posted</th>
-        <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @posts.each do |post| %>
-            <tr>
-                <td><%= link_to post.title, admin_post_path(post) %></td>
-                <td><%= post.user.name %></td>
-                <td><%= post.created_at.strftime("%b %d, %Y") %></td>
-                <td>
-                <!-- View only this post's comments -->
-                <%= link_to "Comments", admin_comments_path(post_id: post.id) %> |
-
-                <!-- Delete post -->
-                <%= link_to "Delete", admin_post_path(post),
-                        method: :delete,
-                        data: { turbo_method: :delete, confirm: "Delete this post and all its comments?" } %>
-                </td>
-            </tr>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Blog Posts Manager</h2>
+        <%= button_to destroy_all_admin_posts_path,
+            data: { "turbo-method": :delete, "turbo_confirm": "⚠️ Are you sure you want to delete ALL posts and their comments? This cannot be undone!" },
+            class: "btn btn-primary fw-semibold rounded-pill px-4" do %>
+            Delete All Posts
         <% end %>
-    </tbody>
-</table>
+    </div>
 
-<p><%= link_to "Dashboard", admin_dashboard_path %></p>
+    <%= form_with url: admin_posts_path, method: :get, local: true do %>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <!-- Filters -->
+            <div class="d-flex align-items-center gap-3 flex-nowrap">
+                <!-- Filter by Author -->
+                <div style="width: 250px; flex: 0 0 auto;">
+                    <%= label_tag :author_id, "Author", class: "form-label fw-semibold" %>
+                    <%= select_tag :author_id,
+                                options_from_collection_for_select(@authors, :id, :name, params[:author_id]),
+                                include_blank: "All Authors",
+                                class: "form-select form-select-sm" %>
+                </div>
+
+                <!-- Date Filter -->
+                <div style="width: 250px; flex: 0 0 auto;">
+                    <%= label_tag :start_date, "From Date", class: "form-label fw-semibold" %>
+                    <%= date_field_tag :start_date, params[:start_date], class: "form-control form-control-sm" %>
+                </div>
+
+                <!-- Buttons -->
+                <div class="filter-btn d-flex gap-2">
+                    <%= submit_tag "Apply", class: "btn btn-primary px-3 rounded-pill" %>
+                    <%= link_to "Reset", admin_posts_path, class: "btn btn-outline-primary px-3 rounded-pill" %>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div style="width: 400px;">
+                <%= label_tag :search, "Search", class: "form-label fw-semibold" %>
+                <%= text_field_tag :search, params[:search], 
+                        class: "form-control form-control-sm", 
+                        placeholder: "Search posts (Title or Author)" %>
+            </div>
+        </div>
+    <% end %>
+        
+    <div class="table-responsive mt-4">
+        <table class="table custom-table align-middle">
+            <thead>
+                <tr>
+                    <th>Post Title</th>
+                    <th>Author</th>
+                    <th>Date Posted</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @posts.each do |post| %>
+                    <tr>
+                        <td>
+                            <%= link_to post.title, admin_post_path(post), class: "fw-semibold text-decoration-none text-dark hover-primary" %>
+                        </td>
+                        <td><%= post.user.name %></td>
+                        <td><%= post.created_at.strftime("%b %d, %Y") %></td>
+                        <td class="d-flex gap-2">
+                            <%= link_to admin_comments_path(post_id: post.id), class: "btn simple-btn-accent text-uppercase ps-0" do %>
+                                Comments
+                            <% end %>
+
+                            <%= link_to admin_post_path(post),
+                                data: { "turbo_method": :delete, "turbo-confirm": "Delete this post and all its comments?" },
+                                class: "btn simple-btn-primary text-uppercase" do %>
+                                Delete
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
