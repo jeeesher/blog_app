@@ -219,8 +219,8 @@ footer {
 }
 
 /* Filter Styles */
-.form-control,
-.form-select {
+.filter-container .form-control,
+.filter-container .form-select {
   height: calc(1.5em + 0.5rem + 2px);
   font-size: 15px;
   border-radius: 8px;
