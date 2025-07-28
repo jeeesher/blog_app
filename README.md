@@ -1,24 +1,51 @@
-# README
+# Blog App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple blog application built with **Ruby on Rails** that supports user authentication, post management, comments, and an admin panel for managing content.
 
-Things you may want to cover:
+**Live Demo:** [https://blog-app-dup1.onrender.com](https://blog-app-dup1.onrender.com)
 
-* Ruby version
+## ✨ Features
 
-* System dependencies
+- **User Authentication** – Users can register, log in, and log out.
+- **Roles & Permissions** – Supports normal users and an admin role.
+- **Blog Posts** – Users can create, edit, and delete their own posts.
+- **Comments** – Users can comment on blog posts.
+- **Admin Panel** – Admins can manage all posts and comments.
+- **Deployed on Render** with PostgreSQL as the production database.
 
-* Configuration
+---
 
-* Database creation
+## 🛠 Tech Stack
 
-* Database initialization
+- **Ruby** 3.x  
+- **Rails** 8.x  
+- **PostgreSQL** (Production)  
+- **SQLite** (Development & Test)  
+- **Bootstrap 5** for styling  
+- **Render** for deployment  
 
-* How to run the test suite
+---
 
-* Services (job queues, cache servers, search engines, etc.)
+## 🚀 Getting Started
 
-* Deployment instructions
+### 1. Clone the Repository
 
-* ...
+```bash
+git clone https://github.com/your-username/blog_app.git
+cd blog_app
+
+### 2. Install Dependencies
+
+```bash
+bundle install
+
+### 3. Setup the Database
+
+```bash
+rails db:create db:migrate db:seed
+rails db:migrate
+
+### 4. Start the Server
+
+```bash
+bin/rails server
