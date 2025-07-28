@@ -77,6 +77,10 @@ class Admin::PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def post_params
+    params.require(:post).permit(:title, :body)
+  end
+
   def require_admin
     unless logged_in? && admin?
       redirect_to root_path, alert: "You are not authorized to access this page."
