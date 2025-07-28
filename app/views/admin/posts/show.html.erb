@@ -26,7 +26,7 @@
         </div>
     </div>
 
-    <p><%= @post.body %></p>
+    <div class="post-body"><%= markdown(@post.body) %></div>
 
     <hr>
 

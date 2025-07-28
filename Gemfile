@@ -25,6 +25,8 @@ gem "bcrypt", "~> 3.1.7"
 gem "sprockets-rails"
 gem "sassc-rails"
 gem "bootstrap", "~> 5.3.0"
+gem "redcarpet"
+
 
 
 group :development, :test do
