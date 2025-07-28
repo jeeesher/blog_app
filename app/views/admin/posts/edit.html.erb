@@ -1,0 +1,33 @@
+<div class="post-form-container mx-auto mt-5">
+    <div class="post-form-card">
+        <h3 class="mb-4">Edit Post</h3>
+
+        <%= form_with model: [:admin, @post], local: true do |f| %>
+            <% if @post.errors.any? %>
+            <div class="alert alert-danger">
+                <h5 class="fw-bold"><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h5>
+                <ul>
+                <% @post.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+                </ul>
+            </div>
+            <% end %>
+
+            <div class="mb-3">
+                <%= f.label :title, class: "form-label fw-semibold" %><br>
+                <%= f.text_field :title, required: true, class: "form-control rounded-2" %>
+            </div>
+
+            <div class="mb-4">
+                <%= f.label :body, class: "form-label fw-semibold" %>
+                <%= f.text_area :body, rows: 6, required: true, class: "form-control rounded-2" %>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+                <%= link_to "Cancel", (request.referer || root_path), class: "btn btn-outline-primary rounded-pill px-4" %>
+                <%= f.submit "Save", class: "btn btn-primary rounded-pill px-4" %>
+            </div>
+        <% end %>
+    </div>
+</div>
