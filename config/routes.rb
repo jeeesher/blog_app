@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get "dashboard" => "dashboard#index"
-    resources :posts, only: [:index, :show, :destroy] do
+    resources :posts, only: [:index, :show, :edit, :update, :destroy] do
       collection do
         delete :destroy_all
       end

@@ -1,6 +1,6 @@
 class Admin::PostsController < ApplicationController
   before_action :require_admin
-  before_action :set_post, only: [:show, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
     @posts = Post.includes(:user).order(created_at: :desc)
@@ -35,6 +35,19 @@ class Admin::PostsController < ApplicationController
     @comments = @post.comments.includes(:user).order(created_at: :asc)
   end
 
+  def edit
+    @post = Post.find(params[:id])
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to admin_posts_path, notice: "Post updated successfully."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   def destroy
     @post.destroy
 
@@ -62,6 +75,10 @@ class Admin::PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :body)
   end
 
   def require_admin
