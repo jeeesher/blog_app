@@ -28,24 +28,20 @@ A simple blog application built with **Ruby on Rails** that supports user authen
 
 ## 🚀 Getting Started
 
-### 1. Clone the Repository
+1. **Clone the Repository**
+    ```bash
+    git clone https://github.com/your-username/blog_app.git
+    cd blog_app
 
-```bash
-git clone https://github.com/your-username/blog_app.git
-cd blog_app
+2. **Install Dependencies**
+    ```bash
+    bundle install
 
-### 2. Install Dependencies
+3. **Setup the Database**
+    ```bash
+    rails db:create db:migrate db:seed
+    rails db:migrate
 
-```bash
-bundle install
-
-### 3. Setup the Database
-
-```bash
-rails db:create db:migrate db:seed
-rails db:migrate
-
-### 4. Start the Server
-
-```bash
-bin/rails server
+4. **Start the Server**
+    ```bash
+    bin/rails server
