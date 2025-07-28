@@ -11,7 +11,7 @@
 User.create!(
   name: "Admin User",
   email: "admin@gmail.com",
-  password: "admin123",
+  password: "adminpassword123",
   role: "admin"
 )
 
