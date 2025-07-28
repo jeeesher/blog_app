@@ -71,9 +71,13 @@
                                 Comments
                             <% end %>
 
+                            <%= link_to edit_admin_post_path(post), class: "btn simple-btn-primary text-uppercase ps-0 fw-semibold" do %>
+                                Edit
+                            <% end %>
+
                             <%= link_to admin_post_path(post),
                                 data: { "turbo_method": :delete, "turbo-confirm": "Delete this post and all its comments?" },
-                                class: "btn simple-btn-primary text-uppercase fw-semibold" do %>
+                                class: "btn simple-btn-accent text-uppercase fw-semibold" do %>
                                 Delete
                             <% end %>
                         </td>
